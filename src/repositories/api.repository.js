@@ -133,7 +133,7 @@ export class ApiRepository {
 
   async uploadFile(file, folderId) {
     try {
-      const location = uploadFileS3(file);
+      const location = await uploadFileS3(file);
       return (
         await pool.query(
           `INSERT INTO "File" (name, folder_id, fieldname, originalname, encoding, mimetype, size, location)
