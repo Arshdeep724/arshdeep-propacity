@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function verifyToken(req, res, next) {
   const publicRoutes = ["/", "/auth/login", "/auth/register"];
@@ -8,7 +10,7 @@ export function verifyToken(req, res, next) {
   const token = req.header("Authorization").replace("Bearer","").trim();
   if (!token) return res.status(401);
   try {
-    const user = jwt.verify(token, "PROPACITY");
+    const user = jwt.verify(token, process.env.JWT_SECRET);
     req.user = user;
     next();
   } catch (error) {

@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { verifyToken } from "./auth/middleware/auth.middleware.js";
 
 const app = express();
+
 dotenv.config();
 app.use(express.json());
 app.use(verifyToken);

@@ -1,13 +1,15 @@
 import AWS from "aws-sdk";
+import dotenv from "dotenv";
+dotenv.config();
 
 const s3 = new AWS.S3({
-  accessKeyId: "AKIA5ILPRBUPHXOB7VRL",
-  secretAccessKey: "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",
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET,
 });
 
 export const uploadFileS3 = (file) => {
   const params = {
-    Bucket: "test-bucket-arshdeep",
+    Bucket: process.env.AWS_BUCKET,
     Key: file.originalname,
     Body: file.buffer,
   };

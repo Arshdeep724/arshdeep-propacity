@@ -4,6 +4,8 @@ import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { uploadFileS3 } from "../aws/aws.lib.js";
 import { generateRandomString } from "../utils/random-string-generator.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export class ApiRepository {
   constructor() {}
@@ -66,7 +68,7 @@ export class ApiRepository {
       }
       const access_token = jwt.sign(
         { userId: user.id, user_name: user.user_name },
-        "PROPACITY",
+        process.env.JWT_SECRET,
         {
           expiresIn: "1h",
         }
