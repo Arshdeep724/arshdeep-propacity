@@ -10,8 +10,32 @@ dotenv.config();
 export class ApiRepository {
   constructor() {}
 
-  async getAllUsers() {
-    return (await pool.query('Select * from "User"')).rows;
+  async getAllFolders(page, limit, sortBy, sortOrder) {
+    try {
+      const offset = (page - 1) * limit;
+      return (
+        await pool.query(`SELECT * 
+        FROM "Folder"
+      ORDER BY ${sortBy} ${sortOrder}
+      LIMIT ${limit} OFFSET ${offset};`)
+      ).rows;
+    } catch (error) {
+      throw createError(error.status || 500, error.message);
+    }
+  }
+
+  async getAllFiles(page, limit, sortBy, sortOrder) {
+    try {
+      const offset = (page - 1) * limit;
+      return (
+        await pool.query(`SELECT * 
+        FROM "File"
+      ORDER BY ${sortBy} ${sortOrder}
+      LIMIT ${limit} OFFSET ${offset};`)
+      ).rows;
+    } catch (error) {
+      throw createError(error.status || 500, error.message);
+    }
   }
 
   async findUser(user_name) {

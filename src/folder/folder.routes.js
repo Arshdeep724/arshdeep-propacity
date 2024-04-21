@@ -96,10 +96,30 @@ FolderRouter.get("/", async (req, res) => {
   }
 });
 
+FolderRouter.get("/all", async (req, res) => {
+  try {
+    const { page = 1, limit = 10, sortBy = "name", sortOrder = "asc" } = req.query;
+    const folders = await apiRepository.getAllFolders(page,limit,sortBy,sortOrder);
+    res.send(folders);
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
+});
+
 FolderRouter.get("/file", async (req, res) => {
   try {
     const name = req.query.name;
     const files = await apiRepository.searchFiles(name);
+    res.send(files);
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
+});
+
+FolderRouter.get("/file/all", async (req, res) => {
+  try {
+    const { page = 1, limit = 10, sortBy = "name", sortOrder = "asc" } = req.query;
+    const files = await apiRepository.getAllFiles(page,limit,sortBy,sortOrder);
     res.send(files);
   } catch (error) {
     res.status(error.status).send(error);
