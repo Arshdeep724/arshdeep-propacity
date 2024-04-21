@@ -5,11 +5,20 @@ export const AuthRouter = Router();
 const apiRepository = new ApiRepository();
 
 AuthRouter.post("/register", async (req, res) => {
-  const user = await apiRepository.createUser(req.body);
-  res.send(user);
+  try {
+    const user = await apiRepository.createUser(req.body);
+    res.send(user);
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 });
 
 AuthRouter.post("/login", async (req, res) => {
-  const { user_name, password } = await req.body;
-  return apiRepository.login(user_name,password);
+  try {
+    const { user_name, password } = req.body;
+    const response = await apiRepository.login(user_name,password);
+    res.send(response);
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 });

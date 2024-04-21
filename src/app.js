@@ -1,11 +1,15 @@
 import express from "express";
 import { pool } from "./db/connect.js";
 import { AuthRouter } from "./auth/auth.routes.js";
+import { FolderRouter } from "./folder/folder.routes.js";
 import dotenv from "dotenv";
+import { verifyToken } from "./auth/middleware/auth.middleware.js";
 
 const app = express();
 dotenv.config();
 app.use(express.json());
+app.use(verifyToken);
+
 try {
   await pool.connect();
   console.log("Connected to the database!");
@@ -19,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", AuthRouter);
+app.use("/folder",FolderRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
