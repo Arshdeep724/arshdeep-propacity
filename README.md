@@ -7,15 +7,15 @@ Steps to run the app:
 2. Setting up the Environment Variable
 - Create a `.env` file in the root directory of your project.
 - Add the following variables to your `.env` file:  
-    JWT_SECRET
-    DB_USER 
-    DB_HOST
-    DB_PASSWORD
-    DB_NAME 
-    DB_PORT 
-    AWS_KEY
-    AWS_SECRET
-    AWS_BUCKET    
+    - JWT_SECRET
+    - DB_USER 
+    - DB_HOST
+    - DB_PASSWORD
+    - DB_NAME 
+    - DB_PORT 
+    - AWS_KEY
+    - AWS_SECRET
+    - AWS_BUCKET    
 
 3. Running the App
 - Run the command `npm start` to start the app.
